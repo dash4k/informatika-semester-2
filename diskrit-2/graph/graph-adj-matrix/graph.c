@@ -60,6 +60,7 @@ void destroy_graph(graph* g) {
     }
     
     free(g);
+    return;
 }
 
 void print_graph(graph* g) {
@@ -80,18 +81,18 @@ void print_graph(graph* g) {
     
     printf("}\n");
 }
-bool add_edge(graph* g, unsigned int from_node, unsigned int to_node) {
+void add_edge(graph* g, unsigned int from_node, unsigned int to_node) {
     assert(g != NULL);
     assert(from_node < g->numnodes);
     assert(to_node < g->numnodes);
 
     if (has_edge(g, from_node, to_node))
     {
-        return false;
+        return;
     }
     
     g->edges[from_node][to_node] = true;
-    return true;
+    return;
 }
 
 bool has_edge(graph* g, unsigned int from_node, unsigned int to_node) {

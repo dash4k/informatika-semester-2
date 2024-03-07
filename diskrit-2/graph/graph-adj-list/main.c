@@ -8,6 +8,8 @@ int main(void){
     add_edges(graph, 0, 1);
     add_edges(graph, 1, 3);
     add_edges(graph, 0, 3);
+    add_edges(graph, 2, 3);
+    add_edges(graph, 3, 2);
 
     print_graph(graph);
 }

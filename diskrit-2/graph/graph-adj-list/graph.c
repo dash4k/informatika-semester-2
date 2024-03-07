@@ -36,16 +36,14 @@ graph_t *create_graph(int verticies){
 }
 
 void add_edges(graph_t *graph, int a, int b){
-    
-    // edge a ke b
+
     node_t *temp = create_nodes(b);
     temp->next = graph->Adjlist[a];
     graph->Adjlist[a] = temp;
 
-    // edge b ke a
-    temp = create_nodes(a);
-    temp->next = graph->Adjlist[b];
-    graph->Adjlist[b] = temp;
+    // temp = create_nodes(a);
+    // temp->next = graph->Adjlist[b];
+    // graph->Adjlist[b] = temp;
 }
 
 void print_graph(graph_t *graph){
