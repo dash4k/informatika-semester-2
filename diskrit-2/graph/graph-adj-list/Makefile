@@ -3,14 +3,10 @@ BIN=diskrit
 
 all: diskrit
 
-%.o: %.c %.h
-	$(CC) -c $^
 
-$(BIN): main.o graph.o
+$(BIN): main.c graph.c
 	$(CC) -o $@ $^
 
-vis: $(BIN)
-	$(BIN) | dot -Tpdf > vis.pdf
 
 clean: 
 	@echo Removing unwanted Files
