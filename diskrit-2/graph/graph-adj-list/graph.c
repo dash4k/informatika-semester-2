@@ -25,7 +25,7 @@ node_t *create_nodes(int vertex){
 graph_t *create_graph(int verticies){
     graph_t *new_graph = malloc(sizeof(graph_t));
     new_graph->verticies = verticies;
-    new_graph->Adjlist = malloc(verticies * sizeof(node_t));
+    new_graph->Adjlist = calloc(sizeof(node_t), new_graph->verticies);
 
     for (int i = 0; i < verticies; i++)
     {
@@ -37,27 +37,50 @@ graph_t *create_graph(int verticies){
 
 void add_edges(graph_t *graph, int a, int b){
 
+    //directed
     node_t *temp = create_nodes(b);
     temp->next = graph->Adjlist[a];
     graph->Adjlist[a] = temp;
 
+    // undirected
+    // node_t *temp = create_nodes(b);
+    // temp->next = graph->Adjlist[a];
+    // graph->Adjlist[a] = temp;
     // temp = create_nodes(a);
     // temp->next = graph->Adjlist[b];
     // graph->Adjlist[b] = temp;
 }
 
 void print_graph(graph_t *graph){
+    int degree = 0;
     for (int i = 0; i < graph->verticies; i++)
     {
         node_t *temp = graph->Adjlist[i];
-        printf("\n Vertex %d: ", i);
+        printf("\nVertex %d: ", i);
         
         while (temp)
         {
             printf("%d -> ", temp->vertex);
             temp = temp->next;
+            degree++;
         }
 
     }
     printf("\n");    
+    printf("\nGraph degree: %d", degree);    
+}
+
+void check_connectivity(graph_t *graph, int random, int *reach){
+    reach[random] = 1;
+    node_t *temp = graph->Adjlist[random];
+    while (temp)
+    {
+        if (reach[temp->vertex] != 1)
+        {
+            printf("\n %d->%d", random, temp->vertex);
+            check_connectivity(graph, temp->vertex, reach);
+        }
+        temp = temp->next;
+    }
+    free(temp);
 }
