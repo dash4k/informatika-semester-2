@@ -72,7 +72,7 @@ void print_hasil(mahasiswa_t *mahasiswa, int x){
     printf("\nHasil: \n");
     for (int i = 0; i < x; i++)
     {
-        if (temp->status)
+        if (temp[i].status)
         {
             printf("%s LULUS \n", temp[i].nama);
         }
@@ -96,6 +96,7 @@ int main(void){
     for (int i = 0; i < x; i++)
     {
         array_mahasiswa[i] = create_mahasiswa();
+        printf("\n");
     }
 
     print_hasil(array_mahasiswa, x);
