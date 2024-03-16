@@ -65,7 +65,7 @@ void print_graph(graph_t *graph){
             temp = temp->next;
             degree++;
         }
-
+        free(temp);
     }
     printf("\n");    
     printf("\nGraph degree: %d", degree);    
