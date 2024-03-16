@@ -53,6 +53,7 @@ void add_edges(graph_t *graph, int vertex_a, int vertex_b){
 
 void print_graph(graph_t *graph){
     int degree = 0;
+    printf("\nAdjacency List:");
     for (int i = 0; i < graph->verticies; i++)
     {
         node_t *temp = graph->Adjlist[i];
@@ -70,14 +71,14 @@ void print_graph(graph_t *graph){
     printf("\nGraph degree: %d", degree);    
 }
 
-void check_connectivity(graph_t *graph, int random, int *reach){
-    reach[random] = 1;
-    node_t *temp = graph->Adjlist[random];
+void check_connectivity(graph_t *graph, int random_start, int *reach){
+    reach[random_start] = 1;
+    node_t *temp = graph->Adjlist[random_start];
     while (temp)
     {
         if (reach[temp->vertex] != 1)
         {
-            printf("\n %d->%d", random, temp->vertex);
+            // printf("\n %d->%d", random_start, temp->vertex);
             check_connectivity(graph, temp->vertex, reach);
         }
         temp = temp->next;

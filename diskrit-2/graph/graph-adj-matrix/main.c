@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 int main(void) {
+    system("cls");
     int num, temp;
     printf("Number of vertex: ");
     scanf("%d", &num);
