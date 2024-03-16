@@ -35,20 +35,20 @@ graph_t *create_graph(int verticies){
     return new_graph;
 }
 
-void add_edges(graph_t *graph, int a, int b){
+void add_edges(graph_t *graph, int vertex_a, int vertex_b){
 
     //directed
-    node_t *temp = create_nodes(b);
-    temp->next = graph->Adjlist[a];
-    graph->Adjlist[a] = temp;
+    node_t *temp = create_nodes(vertex_b);
+    temp->next = graph->Adjlist[vertex_a];
+    graph->Adjlist[vertex_a] = temp;
 
     // undirected
-    // node_t *temp = create_nodes(b);
-    // temp->next = graph->Adjlist[a];
-    // graph->Adjlist[a] = temp;
-    // temp = create_nodes(a);
-    // temp->next = graph->Adjlist[b];
-    // graph->Adjlist[b] = temp;
+    // node_t *temp = create_nodes(vertex_b);
+    // temp->next = graph->Adjlist[vertex_a];
+    // graph->Adjlist[vertex_a] = temp;
+    // temp = create_nodes(vertex_a);
+    // temp->next = graph->Adjlist[vertex_b];
+    // graph->Adjlist[vertex_b] = temp;
 }
 
 void print_graph(graph_t *graph){

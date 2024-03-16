@@ -64,22 +64,35 @@ void destroy_graph(graph* g) {
 }
 
 void print_graph(graph* g) {
-    printf("disgraph {\n");
+    printf("\nYour Graph:\n\n");
 
     for (int i = 0; i < g->numnodes; i++)
     {
+        printf("\t%d ", i);
+    }
+    
+    printf("\n\n");
+
+    for (int i = 0; i < g->numnodes; i++)
+    {
+        printf("%d", i);
         for (int j = 0; j < g->numnodes; j++)
         {
             if (g->edges[i][j])
             {
-                printf("%d -> %d;\n", i, j);
+                printf("\t1 ");
+            }
+            else
+            {
+                printf("\t0 ");
             }
             
+            
         }
-        
+        printf("\n");
     }
     
-    printf("}\n");
+    printf("\n");
 }
 void add_edge(graph* g, unsigned int from_node, unsigned int to_node) {
     assert(g != NULL);

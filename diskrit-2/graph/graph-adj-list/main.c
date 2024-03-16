@@ -2,14 +2,20 @@
 #include "graph.h"
 
 int main(void){
-    int num = 3, count = 0;
+    int num = 5, count = 0;
     graph_t *graph = create_graph(num);
 
     int *reach = calloc(num, sizeof(int));
 
-    add_edges(graph, 0, 1);
-    add_edges(graph, 1, 2);
-    add_edges(graph, 0, 2);
+    for (int i = 0; i < num; i++)
+    {
+        for (int j = i + 1; j < num; j++)
+        {
+            add_edges(graph, i, j);
+        }
+        
+    }
+    
 
 
     print_graph(graph);
