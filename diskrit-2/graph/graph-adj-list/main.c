@@ -31,4 +31,7 @@ int main(void){
     printf("\n\nGraph Properties: ");
     is_connected(graph);
     is_directed(graph);
+
+    printf("\n\nGraph minimum Coloring: \n");
+    greedy_coloring(graph);
 }
