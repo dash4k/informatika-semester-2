@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include "graph.h"
 
 typedef struct node
@@ -141,66 +138,24 @@ void is_directed(graph_t *graph){
         return;
     }
     
-
     int *reach1 = calloc(graph->vertices, sizeof(int));
     int *reach2 = calloc(graph->vertices, sizeof(int));
 
-    dfs(graph, 0, reach1);
-    dfs(graph, 1, reach2);
-
-    for (int i = 0; i < graph->vertices; i++)
+    for (int i = 1; i < graph->vertices; i++)
     {
-        if ((reach1[i] && !reach2[i]) || (!reach1[i] && reach2[i]))
+        dfs(graph, i-1, reach1);
+        dfs(graph, i, reach2);
+        for (int j = 0; j < graph->vertices; j++)
         {
-            printf("\nGraph is Directed");
-            return;
+            if ((reach1[j] && !reach2[j]) || (!reach1[j] && reach2[j]))
+            {
+                printf("\nGraph is Directed");
+                return;
+            }
         }
         
     }
     printf("\nGraph is Undirected");
-}
-
-void count_degree(graph_t *graph, int* degrees){
-    node_t *temp;
-    for (int i = 0; i < graph->vertices; i++)
-    {
-        degrees[i] = 0;
-        temp = graph->Adjlist[i];
-        while (temp)
-        {
-            degrees[i]++;
-            temp = temp->next;
-        }
-        
-    }
-    
-}
-
-void sort_graph_by_degree(graph_t *graph){
-    int *degrees = calloc(graph->vertices, sizeof(int));
-    node_t *temp_node;
-    int temp_int;
-    count_degree(graph, degrees);
-
-    for (int  i = 0; i < graph->vertices; i++)
-    {
-        for (int j = 0; j < graph->vertices; j++)
-        {
-            if (degrees[i] < degrees[j+1])
-            {
-                temp_int = degrees[j];
-                degrees[j] = degrees[j+1];
-                degrees[j+1] = temp_int;
-
-                temp_node = graph->Adjlist[j];
-                graph->Adjlist[j] = graph->Adjlist[j+1];
-                graph->Adjlist[j+1] = temp_node;
-            }
-            
-        }
-        
-    }
-    
 }
 
 void greedy_coloring(graph_t *graph){
@@ -212,7 +167,6 @@ void greedy_coloring(graph_t *graph){
 
     int *result = calloc(graph->vertices, sizeof(int));
     bool *available = calloc(graph->vertices, sizeof(bool));
-    sort_graph_by_degree(graph);
 
     for (int i = 0; i < graph->vertices; i++) {
         result[i] = -1;
@@ -232,40 +186,36 @@ void greedy_coloring(graph_t *graph){
         return;
     }
 
-    for (int i = 0; i < graph->vertices; i++)
+    node_t *temp = NULL;
+    int count;
+    for (int i = 1; i < graph->vertices; i++)
     {
-        node_t *temp = graph->Adjlist[i];
-        int j = 0;
+        temp = graph->Adjlist[i];
         while (temp)
         {
-            if (result[j] != -1)
+            if (result[temp->vertex] != -1)
             {
-                available[result[j]] = false;
+                available[result[temp->vertex]] = false;
             }
             temp = temp->next;
-            j++;
         }
 
-        
-        int cr;
-        for (cr = 0; cr < graph->vertices; cr++){
-            if (available[cr]){
+        for (count = 0; count < graph->vertices; count++){
+            if (available[count]){
                 break;
             }
         }
 
-        result[i] = cr;
+        result[i] = count;
 
-        j = 0;
         temp = graph->Adjlist[i];
         while (temp)
         {
-            if (result[j] != -1)
+            if (result[temp->vertex] != -1)
             {
-                available[result[j]] = true;
+                available[result[temp->vertex]] = true;
             }
             temp = temp->next;
-            j++;
         }
     }
 

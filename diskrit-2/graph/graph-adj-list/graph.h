@@ -16,8 +16,6 @@ void dfs(graph_t *graph, int random_start, int *connected);
 bool check_graph(graph_t *graph);
 void is_connected(graph_t *graph);
 void is_directed(graph_t *graph);
-void count_degree(graph_t *graph, int* degrees);
-void sort_graph_by_degree(graph_t *graph);
 void greedy_coloring(graph_t *graph);
 
 #endif
