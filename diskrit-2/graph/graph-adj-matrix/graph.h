@@ -1,15 +1,16 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
-typedef struct mygraph graph;
+typedef struct graph graph_t;
 
-graph *create_graph(int numnodes);
-void destroy_graph(graph* g);
-void print_graph(graph* g);
-void add_edge(graph* g, unsigned int from_node, unsigned int to_node);
-bool has_edge(graph* g, unsigned int from_node, unsigned int to_node);
+graph_t *create_graph(int vertices);
+void add_edges(graph_t *graph, int vertex_a, int vertex_b);
+void print_graph(graph_t *graph);
+bool is_cycle(graph_t *graph, int random_start, int parent, bool *reach);
+bool is_tree(graph_t *graph);
 
 #endif

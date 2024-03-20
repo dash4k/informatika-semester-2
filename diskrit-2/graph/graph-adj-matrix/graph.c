@@ -1,117 +1,98 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
 #include "graph.h"
 
-struct mygraph
-{
-    int numnodes;
+struct graph{
+    int vertices;
     bool **edges;
 };
 
-
-graph *create_graph(int numnodes) {
-    graph *g = malloc(sizeof(*g));
-    if (g == NULL)
+graph_t *create_graph(int vertices){
+    graph_t *new_graph = malloc(sizeof(graph_t));
+    new_graph->vertices = vertices;
+    new_graph->edges = calloc(new_graph->vertices, sizeof(bool*));
+    for (int i = 0; i < new_graph->vertices; i++)
     {
-        return NULL;
-    }
-
-    g->numnodes = numnodes;
-
-    // allocate out matrix
-    g->edges = calloc(g->numnodes, sizeof(bool*));
-    if (g == NULL)
-    {
-        free(g);
-        return NULL;
-    }
-
-    for (int i = 0; i < g->numnodes; i++)
-    {
-        g->edges[i] = calloc(g->numnodes, sizeof(bool));
-        if (g == NULL)
-        {
-            destroy_graph(g);
-            return NULL;
-        }
-        
+        new_graph->edges[i] = calloc(new_graph->vertices, sizeof(bool));
     }
     
-    return g;
+    return new_graph;
 }
 
-void destroy_graph(graph* g) {
-    if (g->edges == NULL)
+void add_edges(graph_t *graph, int vertex_a, int vertex_b){
+    if (graph->edges[vertex_a][vertex_b])
     {
-        free(g);
         return;
     }
     
-    for (int i = 0; i < g->numnodes; i++)
-    {
-        g->edges[i] = calloc(g->numnodes, sizeof(bool));
-        if (g->edges[i] != NULL)
-        {
-            free(g->edges[i]);
-        }
-        
-        free(g->edges);
-    }
-    
-    free(g);
-    return;
+    graph->edges[vertex_a][vertex_b] = true;
+    graph->edges[vertex_b][vertex_a] = true;
 }
 
-void print_graph(graph* g) {
+void print_graph(graph_t *graph){
     printf("\nYour Graph:\n\n");
 
-    for (int i = 0; i < g->numnodes; i++)
+    for (int i = 0; i < graph->vertices; i++)
     {
         printf("\t%d ", i);
     }
-    
-    printf("\n\n");
 
-    for (int i = 0; i < g->numnodes; i++)
+    printf("\n\n");
+    for (int i = 0; i < graph->vertices; i++)
     {
         printf("%d", i);
-        for (int j = 0; j < g->numnodes; j++)
+        for (int j = 0; j < graph->vertices; j++)
         {
-            if (g->edges[i][j])
+            if (graph->edges[i][j])
             {
-                printf("\t1 ");
+                printf("\tx");
             }
             else
             {
-                printf("\t0 ");
+                printf("\t-");
             }
             
             
         }
-        printf("\n");
+        printf("\n");   
     }
     
-    printf("\n");
 }
-void add_edge(graph* g, unsigned int from_node, unsigned int to_node) {
-    assert(g != NULL);
-    assert(from_node < g->numnodes);
-    assert(to_node < g->numnodes);
 
-    if (has_edge(g, from_node, to_node))
+bool is_cycle(graph_t *graph, int random_start, int parent, bool *reach){
+    reach[random_start] = true;
+    for (int i = 0; i < graph->vertices; i++)
     {
-        return;
+        if (graph->edges[random_start][i])
+        {
+            if (!reach[i])
+            {
+                if (is_cycle(graph, i, random_start, reach))
+                {
+                    return true;
+                }
+                
+            }
+            else if (i != parent)
+            {
+                return true;
+            }
+            
+        }
+        
     }
-    
-    g->edges[from_node][to_node] = true;
-    return;
+    return false;
 }
 
-bool has_edge(graph* g, unsigned int from_node, unsigned int to_node) {
-    assert(g != NULL);
-    assert(from_node < g->numnodes);
-    assert(to_node < g->numnodes);
+bool is_tree(graph_t *graph){
+    bool *reach = calloc(graph->vertices, sizeof(bool));
+    for (int i = 0; i < graph->vertices; i++)
+    {
+        reach[i] = false;
+    }
 
-    return g->edges[from_node][to_node];
+    if (is_cycle(graph, 0, -1, reach))
+    {
+        return false;
+    }
+    
+    return true;
 }

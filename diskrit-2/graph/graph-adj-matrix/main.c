@@ -1,39 +1,33 @@
 #include "graph.h"
-#include <stdio.h>
 
-int main(void) {
+int main(void){
     system("cls");
-    int num, temp;
-    printf("Number of vertex: ");
-    scanf("%d", &num);
+    int len, temp;
+    printf("Enter the length of the matrix: ");
+    scanf("%d", &len);
 
-    graph *g1 = create_graph(num);
-    
+    graph_t *graph = create_graph(len);
 
-    // add_edge(g1, 0, 1);
-    // add_edge(g1, 0, 2);
-    // add_edge(g1, 0, 0);
-    // add_edge(g1, 1, 2);
-    // add_edge(g1, 1, 3);
-    // add_edge(g1, 3, 4);
-    // add_edge(g1, 4, 1);
-    // add_edge(g1, 4, 0);
-
-    printf("Enter 1 if vertex are connected, if not connected enter 0\n");
-    for (int i = 0; i < num; i++)
+    printf("If these index of the matrix is adjacent input 1, else input 0\n");
+    for (int i = 0; i < len; i++)
     {
-        for (int j = 0; j < num; j++)
+        for (int j = i; j < len; j++)
         {
             printf("\t%d -> %d: ", i, j);
             scanf("%d", &temp);
             if (temp)
-                add_edge(g1, i, j);
+            {
+                add_edges(graph, i, j);
+            }
         }
         
     }
     
 
-    print_graph(g1);
-
-    destroy_graph(g1);
+    print_graph(graph);
+    if (is_tree(graph))
+    {
+        printf("\nYour graph is a tree");
+    }
+    
 }
