@@ -54,8 +54,8 @@ int berat_terendah(array_t *array_pasien){
     return index;
 }
 
-int berat_rerata(array_t *array_pasien){
-    int berat_rerata = 0;
+float berat_rerata(array_t *array_pasien){
+    float berat_rerata = 0;
     for (int i = 0; i < array_pasien->jumlah_pasien; i++)
     {
         berat_rerata += array_pasien->array_pasien[i].berat;
@@ -78,8 +78,8 @@ int tinggi_terendah(array_t *array_pasien){
     return index;
 }
 
-int tinggi_rerata(array_t *array_pasien){
-    int tinggi_rerata = 0;
+float tinggi_rerata(array_t *array_pasien){
+    float tinggi_rerata = 0;
     for (int i = 0; i < array_pasien->jumlah_pasien; i++)
     {
         tinggi_rerata += array_pasien->array_pasien[i].tinggi;
@@ -100,8 +100,8 @@ void print_array(array_t *array_pasien){
 }
 
 void print_lainnya(array_t *array_pasien, int index_tinggi, int index_berat){
-    printf("Berat Rata-Rata: %d\n", berat_rerata(array_pasien));
-    printf("Tinggi Rata-Rata: %d\n", tinggi_rerata(array_pasien));
+    printf("Berat Rata-Rata: %f\n", berat_rerata(array_pasien));
+    printf("Tinggi Rata-Rata: %f\n", tinggi_rerata(array_pasien));
     printf("\n");
     printf("Berat terendah: %s dengan berat %d Ton\n", array_pasien->array_pasien[index_berat].nama, array_pasien->array_pasien[index_berat].berat);
     printf("Tinggi terendah: %s dengan tinggi %d Meter\n", array_pasien->array_pasien[index_tinggi].nama, array_pasien->array_pasien[index_tinggi].tinggi);
