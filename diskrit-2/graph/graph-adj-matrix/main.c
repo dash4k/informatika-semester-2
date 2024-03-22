@@ -25,9 +25,13 @@ int main(void){
     
 
     print_graph(graph);
-    if (is_tree(graph))
+    printf("\n\n");
+    printf("Prufer Codes:\n{ ");
+    int *array = prufer_codes(graph);
+    for (int i = 0; i < len-2; i++)
     {
-        printf("\nYour graph is a tree");
+        printf("%d ", array[i]);
     }
-    
+    printf("}");
+    free(array);
 }

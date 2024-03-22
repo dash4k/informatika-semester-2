@@ -96,3 +96,86 @@ bool is_tree(graph_t *graph){
     
     return true;
 }
+
+int **count_edges(graph_t *graph){
+    int **array = calloc(graph->vertices, sizeof(int*));
+    for (int i = 0; i < graph->vertices; i++)
+    {
+        array[i] = calloc(2, sizeof(int));
+    }
+    
+    for (int i = 0; i < graph->vertices; i++)
+    {
+        array[i][0] = i;
+        array[i][1] = 0;
+        for (int j = 0; j < graph->vertices; j++)
+        {
+            if (graph->edges[i][j])
+            {
+                array[i][1]++;
+            }
+            
+        }
+        
+    }
+
+    return array;
+    
+}
+
+void sort_edges(int **array, int len){
+    int temp1, temp2;
+    for (int i = 0; i < len-1; i++)
+    {
+        for (int j = 0; j < len-i-1; j++)
+        {
+            if (array[j][1] > array[j+1][1] || (array[j][1] == array[j+1][1] && array[j][0] > array[j+1][0]))
+            {
+                temp1 = array[j+1][0];
+                temp2 = array[j+1][1];
+                array[j+1][0] = array[j][0];
+                array[j+1][1] = array[j][1];
+                array[j][0] = temp1;
+                array[j][1] = temp2;
+            }
+        }
+    }
+}
+
+int *prufer_codes(graph_t *graph){
+    int *prufer_array = calloc((graph->vertices-2), sizeof(int));
+    int **degrees = count_edges(graph);
+    int next;
+
+    for (int i = 0; i < graph->vertices-2; i++)
+    {
+        sort_edges(degrees, graph->vertices);
+        next = -1;
+        for (int j = 0; j < graph->vertices; j++)
+        {
+            if (graph->edges[degrees[i][0]][j])
+            {
+                next = j;
+                break;
+            }
+            
+        }
+        if (next != -1)
+        {
+            prufer_array[i] = next;
+            graph->edges[degrees[i][0]][next] = graph->edges[next][degrees[i][0]] = false;
+            degrees[i][1]--;
+            for (int j = 0; j < graph->vertices; j++)
+            {
+                if (degrees[j][0] == next)
+                {
+                    degrees[j][1]--;
+                }
+                
+            }
+            
+        }
+    }
+    return prufer_array;
+}
+
