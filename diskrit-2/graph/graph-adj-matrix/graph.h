@@ -15,4 +15,6 @@ bool is_tree(graph_t *graph);
 int **count_edges(graph_t *graph);
 void sort_edges(int **array, int len);
 int *prufer_codes(graph_t *graph);
+bool find_value(int *array, int key, int len);
+graph_t *convert_code(int *prufer_array, int len);
 #endif

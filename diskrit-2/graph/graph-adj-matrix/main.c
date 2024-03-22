@@ -33,5 +33,11 @@ int main(void){
         printf("%d ", array[i]);
     }
     printf("}");
+
+    print_graph(graph);
+    printf("\n\n");
+
+    graph = convert_code(array, len-2);
+    print_graph(graph);
     free(array);
 }
