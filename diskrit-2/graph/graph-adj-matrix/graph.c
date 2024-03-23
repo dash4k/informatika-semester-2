@@ -204,9 +204,10 @@ graph_t *convert_code(int *prufer_array, int len){
     {
         for (int j = 0; j < len_graph; j++)
         {
-            if (!find_value(prufer_array, array[j], len) && array[j] != -1)
+            if (!find_value(prufer_array, array[j], len) && array[j] != -1 && prufer_array[i] != -1)
             {
                 add_edges(temp_graph, prufer_array[i], array[j]);
+                prufer_array[i] = -1;
                 array[j] = -1;
                 break;
             }
@@ -221,13 +222,11 @@ graph_t *convert_code(int *prufer_array, int len){
             if (array[i] != -1 && array[j] != -1 && array[i] != array[j])
             {
                 add_edges(temp_graph, array[i], array[j]);
-                break;
+                free(array);
+                return temp_graph;
             }
             
         }
         
     }
-    
-    free(array);
-    return temp_graph;
 }
