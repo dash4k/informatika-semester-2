@@ -192,17 +192,17 @@ bool find_value(int *array, int key, int len){
 }
 
 graph_t *convert_code(int *prufer_array, int len){
-    int len1 = len + 2;
-    int *array = calloc((len1), sizeof(int));
-    for (int i = 0; i < len1; i++)
+    int len_graph = len + 2;
+    int *array = calloc((len_graph), sizeof(int));
+    for (int i = 0; i < len_graph; i++)
     {
         array[i] = i;
     }
     
-    graph_t *temp_graph = create_graph(len1);
+    graph_t *temp_graph = create_graph(len_graph);
     for (int i = 0; i < len; i++)
     {
-        for (int j = 0; j < len1; j++)
+        for (int j = 0; j < len_graph; j++)
         {
             if (!find_value(prufer_array, array[j], len) && array[j] != -1)
             {
@@ -214,9 +214,9 @@ graph_t *convert_code(int *prufer_array, int len){
         
     }
     
-    for (int i = 0; i < len1; i++)
+    for (int i = 0; i < len_graph; i++)
     {
-        for (int j = 0; j < len1; j++)
+        for (int j = 0; j < len_graph; j++)
         {
             if (array[i] != -1 && array[j] != -1 && array[i] != array[j])
             {
