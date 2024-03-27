@@ -27,8 +27,13 @@ int main(void){
     print_graph(graph);
     printf("\n\n");
 
-    printf("MST: \n\n");
-    graph_t *mst = create_mst(graph);
+    printf("MST Prim: \n\n");
+    graph_t *mst = create_mst_prim(graph);
     print_graph(mst);
+    printf("\n\n");
+
+    printf("MST Kruskal: \n\n");
+    graph_t *mst1 = create_mst_kruskal(graph);
+    print_graph(mst1);
     
 }
