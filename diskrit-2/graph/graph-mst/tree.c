@@ -176,7 +176,7 @@ graph_t *create_mst_kruskal(graph_t *graph){
     }
     
     int total_edges = count_edges(graph);
-    int edge_1, edge_2;
+    int vertex_1, vertex_2;
 
     edge_array *temp_array = malloc(sizeof(edge_array));
     temp_array->data = calloc(total_edges, sizeof(edge_t));
@@ -206,14 +206,14 @@ graph_t *create_mst_kruskal(graph_t *graph){
 
     for (int i = 0; i < temp_array->edges; i++)
     {
-        edge_1 = union_array[temp_array->data[i].col];
-        edge_2 = union_array[temp_array->data[i].row];
+        vertex_1 = union_array[temp_array->data[i].col];
+        vertex_2 = union_array[temp_array->data[i].row];
 
-        if (edge_1 != edge_2)
+        if (vertex_1 != vertex_2)
         {
             real_array->data[i] = temp_array->data[i];
             real_array->edges++;
-            merge_union(union_array, graph->vertices, edge_1, edge_2);
+            merge_union(union_array, graph->vertices, vertex_1, vertex_2);
         }
         
     }
