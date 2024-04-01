@@ -110,7 +110,7 @@ graph_t *create_mst_prim(graph_t *graph){
             
         }
 
-        add_edge(new_tree, row, col, graph->edges[row][col]);
+        add_edge(new_tree, row, col, min);
         selected[col] = true;
         edges++;
         
