@@ -98,8 +98,8 @@ graph_t *create_mst_prim(graph_t *graph){
                         if (min > graph->edges[i][j])
                         {
                             min = graph->edges[i][j];
-                            row = i;
-                            col = j;
+                            col = i;
+                            row = j;
                         }
                         
                     }
@@ -110,8 +110,8 @@ graph_t *create_mst_prim(graph_t *graph){
             
         }
 
-        add_edge(new_tree, row, col, min);
-        selected[col] = true;
+        add_edge(new_tree, col, row, min);
+        selected[row] = true;
         edges++;
         
     }
@@ -123,7 +123,7 @@ int count_edges(graph_t* graph){
     int count = 0;
     for (int i = 0; i < graph->vertices; i++)
     {
-        for (int j = 0; j < graph->vertices; j++)
+        for (int j = i+1; j < graph->vertices; j++)
         {
             if (graph->edges[i][j] != 0)
             {
@@ -184,7 +184,7 @@ graph_t *create_mst_kruskal(graph_t *graph){
 
     for (int i = 0; i < graph->vertices; i++)
     {
-        for (int j = i; j < graph->vertices; j++)
+        for (int j = i+1; j < graph->vertices; j++)
         {
             if (graph->edges[i][j] != 0)
             {
@@ -211,7 +211,7 @@ graph_t *create_mst_kruskal(graph_t *graph){
 
         if (vertex_1 != vertex_2)
         {
-            real_array->data[i] = temp_array->data[i];
+            real_array->data[real_array->edges] = temp_array->data[i];
             real_array->edges++;
             merge_union(union_array, graph->vertices, vertex_1, vertex_2);
         }
