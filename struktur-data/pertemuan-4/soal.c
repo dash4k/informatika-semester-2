@@ -6,7 +6,7 @@
 typedef struct mahasiswa
 {
     char nama[50];
-    int nim;
+    char nim[50];
     int ukt;
     int nominal_ukt;
 }mahasiwa_t;
@@ -26,7 +26,8 @@ mahasiwa_t create_mahasiswa(){
     temp.nama[strcspn(temp.nama, "\r\n")] = 0;
 
     printf("Masukkan NIM: ");
-    scanf("%d", &temp.nim);
+    fgets(temp.nim, sizeof(temp.nim), stdin);
+    temp.nim[strcspn(temp.nim, "\r\n")] = 0;
 
     printf("Masukkan Golongan UKT: ");
     scanf("%d", &temp.ukt);
@@ -81,14 +82,7 @@ void enqueue(queue_t **head, queue_t *new_queue){
 }
 
 void dequeue(queue_t **head){
-    queue_t *temp = *head;
-
-    if (*head == NULL)
-    {
-        printf("The queue is currently empty");
-        return;
-    }
-    
+    queue_t *temp = *head;  
     
     *head = (*head)->next;
     free(temp);
@@ -97,10 +91,10 @@ void dequeue(queue_t **head){
 void print_queue(queue_t *head){
     system("cls");
     queue_t *temp = head;
-    printf("NAMA \t\t\t NIM \t\t UKT \t\t NOMINAL\n\n");
+    printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n\n");
     while (temp != NULL)
     {
-        printf("%s \t\t %d \t\t %d \t\t %d", temp->mahasiswa.nama, temp->mahasiswa.nim, temp->mahasiswa.ukt, temp->mahasiswa.nominal_ukt);
+        printf("%s \t\t %s \t\t\t %d \t\t %d", temp->mahasiswa.nama, temp->mahasiswa.nim, temp->mahasiswa.ukt, temp->mahasiswa.nominal_ukt);
         printf("\n");
         temp = temp->next;
     }
@@ -146,8 +140,15 @@ int main(void){
         
         case 2:
             system("cls");
-            printf("NAMA \t\t\t NIM \t\t UKT \t\t NOMINAL\n");
-            printf("%s \t\t %d \t\t %d \t\t %d\n\n", head->mahasiswa.nama, head->mahasiswa.nim, head->mahasiswa.ukt, head->mahasiswa.nominal_ukt);
+            if (head == NULL)
+            {
+                printf("The queue is currently empty\n\n");
+                system("pause");
+                break;
+            }
+
+            printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n");
+            printf("%s \t\t %s \t\t\t %d \t\t %d\n\n", head->mahasiswa.nama, head->mahasiswa.nim, head->mahasiswa.ukt, head->mahasiswa.nominal_ukt);
             system("pause");
             
             if (yakin())
