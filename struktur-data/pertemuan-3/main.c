@@ -33,17 +33,20 @@ void enqueue(queue_t *queue, buku_t *buku){
         printf("Queue is full");
         return;
     }
+
     queue->data[++queue->rear] = *buku;
+    return;
 }
 
-void dequeue(queue_t *queue, buku_t* buku){
+int dequeue(queue_t *queue, buku_t* buku){
     if (queue->front == queue->rear)
     {
         printf("Queue is empty");
-        return;
+        return 1;
     }
     
     *buku = queue->data[++queue->front];
+    return 0;
 }
 
 void add_book(queue_t *queue){
@@ -67,8 +70,13 @@ void add_book(queue_t *queue){
 
 void remove_book(queue_t *queue){
     buku_t *temp_book = malloc(sizeof(buku_t));
+    int status = dequeue(queue, temp_book);
 
-    dequeue(queue, temp_book);
+    if (status == 1)
+    {
+        return;
+    }
+    
     printf("Buku dengan judul %s sudah diambil", temp_book->judul);
     free(temp_book);
 }
@@ -89,6 +97,7 @@ bool yaqueen(void){
 int main(void){
     system("cls");
     int len, menu;
+    bool exit = false;
     printf("Program tumpukan buku :\n");
     printf("Ketik jml maksimum tumpukan : ");
     scanf("%d", &len);
@@ -98,10 +107,10 @@ int main(void){
     do
     {
         system("cls");
-        printf("Menu : \n");
+        printf("\tMenu \n\n");
         printf("1. \tTambah Buku\n");
         printf("2. \tAmbil Buku\n");
-        printf("3. \tKeluar\n");
+        printf("3. \tKeluar\n\n");
         printf("Pilihan: ");
         scanf("%d", &menu);
         
@@ -111,7 +120,7 @@ int main(void){
             if (yaqueen())
             {
                 add_book(queue);
-                printf("\n\n\n\n");
+                printf("\n\n");
                 system("pause");
             }
             break;
@@ -120,21 +129,21 @@ int main(void){
             if (yaqueen())
             {
                 remove_book(queue);
-                printf("\n\n\n\n");
+                printf("\n\n");
                 system("pause");
             }
             break;
 
         case 3:
-            if (!yaqueen())
+            if (yaqueen())
             {
-                menu = 0;
+                exit = true;
             }
             break;
             
         default:
             break;
         }
-    } while (menu != 3);
+    } while (!exit);
     
 }
