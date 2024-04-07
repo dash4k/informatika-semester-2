@@ -138,8 +138,3 @@ int main(void){
     } while (menu != 3);
     
 }
-
-int main2(void){
-    buku_t krisna;
-
-}
