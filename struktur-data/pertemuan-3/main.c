@@ -31,8 +31,8 @@ int main(void){
     system("cls");
     int len, menu;
     bool exit = false;
-    printf("Program tumpukan buku :\n");
-    printf("Ketik jml maksimum tumpukan : ");
+    printf("Program tumpukan buku:\n");
+    printf("Ketik jumlah maksimum tumpukan: ");
     scanf("%d", &len);
 
     stack_t *stack = create_stack(len);
@@ -70,6 +70,7 @@ int main(void){
         case 3:
             if (yaqueen())
             {
+                printf("Terimakasih!\n");
                 exit = true;
             }
             break;
