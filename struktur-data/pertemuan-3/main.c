@@ -10,21 +10,20 @@ typedef struct buku{
     char penerbit[50];
 }buku_t;
 
-// struct queue
-typedef struct queue
+// struct stack
+typedef struct stack
 {
     buku_t *data;
-    int front;
-    int rear;
-    int queue_len;
-}queue_t;
+    int top;
+    int stack_len;
+}stack_t;
 
 // utilities function definition
-queue_t *create_queue(int len);
-void enqueue(queue_t *queue, buku_t *buku);
-int dequeue(queue_t *queue, buku_t* buku);
-void add_book(queue_t *queue);
-void remove_book(queue_t *queue);
+stack_t *create_stack(int len);
+void push(stack_t *stack, buku_t *buku);
+int pop(stack_t *stack, buku_t* buku);
+void add_book(stack_t *stack);
+void remove_book(stack_t *stack);
 bool yaqueen(void);
 
 // main function
@@ -36,7 +35,7 @@ int main(void){
     printf("Ketik jml maksimum tumpukan : ");
     scanf("%d", &len);
 
-    queue_t *queue = create_queue(len);
+    stack_t *stack = create_stack(len);
 
     do
     {
@@ -53,7 +52,7 @@ int main(void){
         case 1:
             if (yaqueen())
             {
-                add_book(queue);
+                add_book(stack);
                 printf("\n\n");
                 system("pause");
             }
@@ -62,7 +61,7 @@ int main(void){
         case 2:
             if (yaqueen())
             {
-                remove_book(queue);
+                remove_book(stack);
                 printf("\n\n");
                 system("pause");
             }
@@ -82,40 +81,39 @@ int main(void){
     
 }
 
-// create queue function
-queue_t *create_queue(int len){
-    queue_t *new_queue = malloc(sizeof(queue_t));
-    new_queue->queue_len = len;
-    new_queue->data = calloc(len, sizeof(buku_t));
-    new_queue->front = -1;
-    new_queue->rear = -1;
+// create stack function
+stack_t *create_stack(int len){
+    stack_t *new_stack = malloc(sizeof(stack_t));
+    new_stack->stack_len = len;
+    new_stack->data = calloc(len, sizeof(buku_t));
+    new_stack->top = -1;
 
-    return new_queue;
+    return new_stack;
 }
 
-// insert to queue function
-void enqueue(queue_t *queue, buku_t *buku){
-    queue->data[++queue->rear] = *buku;
+// insert to stack function
+void push(stack_t *stack, buku_t *buku){
+    stack->data[++stack->top] = *buku;
     return;
 }
 
-// remove from queue function
-int dequeue(queue_t *queue, buku_t* buku){
-    if (queue->front == queue->rear)
+// remove from stack function
+int pop(stack_t *stack, buku_t* buku){
+    if (stack->top == -1)
     {
-        printf("Queue is empty");
+        printf("Stack is empty");
         return 1;
     }
     
-    *buku = queue->data[++queue->front];
+    *buku = stack->data[stack->top--];
     return 0;
 }
 
 //  add book function
-void add_book(queue_t *queue){
-    if (queue->rear == queue->queue_len -1)
+void add_book(stack_t *stack){
+    if (stack->top == stack->stack_len -1)
     {
-        printf("Queue is full");
+        printf("Stack is full");
         return;
     }
 
@@ -134,13 +132,13 @@ void add_book(queue_t *queue){
     printf("Masukkan Jumlah Halaman Buku: ");
     scanf("%d", &new_book->jumlah_halaman);
     
-    enqueue(queue, new_book);
+    push(stack, new_book);
 }
 
 // remove book function
-void remove_book(queue_t *queue){
+void remove_book(stack_t *stack){
     buku_t *temp_book = malloc(sizeof(buku_t));
-    int status = dequeue(queue, temp_book);
+    int status = pop(stack, temp_book);
 
     if (status == 1)
     {
