@@ -6,6 +6,7 @@
 typedef struct mahasiswa
 {
     char nama[50];
+    char nim[50];
     float uts;
     float uas;
     float tugas;
@@ -48,6 +49,10 @@ mahasiswa_t create_mahasiswa(){
     printf("Nama Mahasiswa: ");
     fgets(temp.nama, sizeof(temp.nama), stdin);
     temp.nama[strcspn(temp.nama, "\r\n")] = 0;
+
+    printf("NIM Mahasiswa: ");
+    fgets(temp.nim, sizeof(temp.nim), stdin);
+    temp.nim[strcspn(temp.nim, "\r\n")] = 0;
 
     printf("Nilai UTS: ");
     scanf("%f", &temp.uts);
@@ -112,7 +117,7 @@ void print_grade(array_t *array){
     printf("\tNilai Mahasiswa: \n\n");
     for (int i = 0; i < array->total_mahasiswa; i++)
     {
-        printf("%s, nilai mutu: %c\n", array->mahasiswa[i].nama, array->mahasiswa[i].nilai_mutu);
+        printf("%s, NIM: %s, Nilai Mutu: %c\n", array->mahasiswa[i].nama, array->mahasiswa[i].nim, array->mahasiswa[i].nilai_mutu);
     }
     printf("\n");
 }
