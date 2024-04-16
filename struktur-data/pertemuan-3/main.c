@@ -3,12 +3,14 @@
 #include <stdbool.h>
 #include <string.h>
 
+// struct buku
 typedef struct buku{
     char judul[50];
     int jumlah_halaman;
     char penerbit[50];
 }buku_t;
 
+// struct queue
 typedef struct queue
 {
     buku_t *data;
@@ -17,83 +19,15 @@ typedef struct queue
     int queue_len;
 }queue_t;
 
-queue_t *create_queue(int len){
-    queue_t *new_queue = malloc(sizeof(queue_t));
-    new_queue->queue_len = len;
-    new_queue->data = calloc(len, sizeof(buku_t));
-    new_queue->front = -1;
-    new_queue->rear = -1;
+// utilities function definition
+queue_t *create_queue(int len);
+void enqueue(queue_t *queue, buku_t *buku);
+int dequeue(queue_t *queue, buku_t* buku);
+void add_book(queue_t *queue);
+void remove_book(queue_t *queue);
+bool yaqueen(void);
 
-    return new_queue;
-}
-
-void enqueue(queue_t *queue, buku_t *buku){
-    if (queue->rear == queue->queue_len -1)
-    {
-        printf("Queue is full");
-        return;
-    }
-
-    queue->data[++queue->rear] = *buku;
-    return;
-}
-
-int dequeue(queue_t *queue, buku_t* buku){
-    if (queue->front == queue->rear)
-    {
-        printf("Queue is empty");
-        return 1;
-    }
-    
-    *buku = queue->data[++queue->front];
-    return 0;
-}
-
-void add_book(queue_t *queue){
-    buku_t *new_book = malloc(sizeof(buku_t));
-
-    printf("Masukkan Judul Buku: ");
-    getchar();
-    fgets(new_book->judul, sizeof(new_book->judul), stdin);
-    new_book->judul[strcspn(new_book->judul, "\r\n")] = 0;
-
-    printf("Masukkan Penerbit: ");
-    getchar();
-    fgets(new_book->penerbit, sizeof(new_book->penerbit), stdin);
-    new_book->penerbit[strcspn(new_book->penerbit, "\r\n")] = 0;
-
-    printf("Masukkan Jumlah Halaman Buku: ");
-    scanf("%d", &new_book->jumlah_halaman);
-    
-    enqueue(queue, new_book);
-}
-
-void remove_book(queue_t *queue){
-    buku_t *temp_book = malloc(sizeof(buku_t));
-    int status = dequeue(queue, temp_book);
-
-    if (status == 1)
-    {
-        return;
-    }
-    
-    printf("Buku dengan judul %s sudah diambil", temp_book->judul);
-    free(temp_book);
-}
-
-bool yaqueen(void){
-    system("cls");
-    char yakin;
-    printf("Anda Yakin (Y/T): ");
-    scanf(" %c", &yakin);
-
-    if (yakin == 'Y' || yakin == 'y')
-    {
-        return true;
-    }
-    return false;
-}
-
+// main function
 int main(void){
     system("cls");
     int len, menu;
@@ -146,4 +80,87 @@ int main(void){
         }
     } while (!exit);
     
+}
+
+// create queue function
+queue_t *create_queue(int len){
+    queue_t *new_queue = malloc(sizeof(queue_t));
+    new_queue->queue_len = len;
+    new_queue->data = calloc(len, sizeof(buku_t));
+    new_queue->front = -1;
+    new_queue->rear = -1;
+
+    return new_queue;
+}
+
+// insert to queue function
+void enqueue(queue_t *queue, buku_t *buku){
+    queue->data[++queue->rear] = *buku;
+    return;
+}
+
+// remove from queue function
+int dequeue(queue_t *queue, buku_t* buku){
+    if (queue->front == queue->rear)
+    {
+        printf("Queue is empty");
+        return 1;
+    }
+    
+    *buku = queue->data[++queue->front];
+    return 0;
+}
+
+//  add book function
+void add_book(queue_t *queue){
+    if (queue->rear == queue->queue_len -1)
+    {
+        printf("Queue is full");
+        return;
+    }
+
+    buku_t *new_book = malloc(sizeof(buku_t));
+
+    printf("Masukkan Judul Buku: ");
+    getchar();
+    fgets(new_book->judul, sizeof(new_book->judul), stdin);
+    new_book->judul[strcspn(new_book->judul, "\r\n")] = 0;
+
+    printf("Masukkan Penerbit: ");
+    getchar();
+    fgets(new_book->penerbit, sizeof(new_book->penerbit), stdin);
+    new_book->penerbit[strcspn(new_book->penerbit, "\r\n")] = 0;
+
+    printf("Masukkan Jumlah Halaman Buku: ");
+    scanf("%d", &new_book->jumlah_halaman);
+    
+    enqueue(queue, new_book);
+}
+
+// remove book function
+void remove_book(queue_t *queue){
+    buku_t *temp_book = malloc(sizeof(buku_t));
+    int status = dequeue(queue, temp_book);
+
+    if (status == 1)
+    {
+        return;
+    }
+    
+    printf("Buku dengan judul %s sudah diambil", temp_book->judul);
+    free(temp_book);
+}
+
+// confirmation function
+bool yaqueen(void){
+    system("cls");
+    char yakin;
+    printf("Anda Yakin (Y/T): ");
+    scanf(" %c", &yakin);
+
+    if (yakin == 'Y' || yakin == 'y')
+    {
+        return true;
+    }
+    return false;
 }

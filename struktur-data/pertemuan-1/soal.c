@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// struct mahasiswa
 typedef struct mahasiswa
 {
     int NIM;
@@ -14,6 +15,31 @@ typedef struct mahasiswa
     bool status;
 }mahasiswa_t;
 
+
+// utilities function definition
+mahasiswa_t create_mahasiswa();
+void print_mahasiswa(mahasiswa_t *mahasiswa);
+void print_hasil(mahasiswa_t *mahasiswa, int x);
+
+// main function
+int main(void){
+    system("cls");
+    int x;
+    printf("Masukkan Jumlah Mahasiswa: ");
+    scanf("%d", &x);
+
+    mahasiswa_t *array_mahasiswa = malloc(sizeof(mahasiswa_t) * x);
+
+    for (int i = 0; i < x; i++)
+    {
+        array_mahasiswa[i] = create_mahasiswa();
+        printf("\n");
+    }
+
+    print_hasil(array_mahasiswa, x);
+}
+
+// create mahasiswa function
 mahasiswa_t create_mahasiswa(){
 
     mahasiswa_t mahasiswa;
@@ -45,6 +71,7 @@ mahasiswa_t create_mahasiswa(){
     return mahasiswa;
 }
 
+// print mahasiswa function
 void print_mahasiswa(mahasiswa_t *mahasiswa){
     printf("\n\n");
     printf("NIM: %d \n", mahasiswa->NIM);
@@ -66,6 +93,7 @@ void print_mahasiswa(mahasiswa_t *mahasiswa){
     
 }
 
+// print hasil function
 void print_hasil(mahasiswa_t *mahasiswa, int x){
 
     mahasiswa_t *temp = mahasiswa;
@@ -83,23 +111,4 @@ void print_hasil(mahasiswa_t *mahasiswa, int x){
         
     }
     
-}
-
-int main(void){
-    system("cls");
-    int x;
-    printf("Masukkan Jumlah Mahasiswa: ");
-    scanf("%d", &x);
-
-    mahasiswa_t *array_mahasiswa = malloc(sizeof(mahasiswa_t) * x);
-
-    for (int i = 0; i < x; i++)
-    {
-        array_mahasiswa[i] = create_mahasiswa();
-        printf("\n");
-    }
-
-    print_hasil(array_mahasiswa, x);
-
-    // print_mahasiswa(mahasiswa);
 }
