@@ -34,7 +34,7 @@ int main(void){
     int menu, nominal, kembalian, size;
     bool exit = false;
     
-    printf("Masukkan jumlah maksimal antrian dalam satu kurun waktu (size > 1): ");
+    printf("Masukkan jumlah maksimal antrian dalam satu kurun waktu: ");
     scanf("%d", &size);
 
     q = create_queue(size);
