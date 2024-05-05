@@ -23,16 +23,17 @@ void enqueue(queue_t **head, queue_t *new_queue);
 void dequeue(queue_t **head);
 void print_queue(queue_t *head);
 void pause();
+void clear_screen();
 bool yakin(void);
 
 int main(void){
     queue_t *head = NULL, *new = NULL; 
-    int menu;
+    int menu, nominal, kembalian;
     bool exit = false;
 
     do
     {
-        system("clear");
+        clear_screen();
         printf("Menu: \n\n");
         printf("1.\tTambah Antrian\n");
         printf("2.\tProses Pembayaran\n");
@@ -44,13 +45,13 @@ int main(void){
         switch (menu)
         {
         case 1:
-            system("clear");
+            clear_screen();
             new = create_queue();
             enqueue(&head, new);
             break;
         
         case 2:
-            system("clear");
+            clear_screen();
             if (head == NULL)
             {
                 printf("The queue is currently empty\n\n");
@@ -60,16 +61,32 @@ int main(void){
 
             printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n");
             printf("%s \t\t %s \t\t\t %d \t\t %d\n\n", head->mahasiswa.nama, head->mahasiswa.nim, head->mahasiswa.ukt, head->mahasiswa.nominal_ukt);
-            pause();
-            
-            if (yakin())
+
+            printf("\n\nNominal: ");
+            scanf("%d", &nominal);
+                
+            kembalian = nominal - head->mahasiswa.nominal_ukt;
+            if (kembalian < 0)
             {
-                dequeue(&head);
+                clear_screen();
+                printf("Nominal tidak cukup! \n\n");
+                pause();
+                break;
             }
-            break;
+            else
+            {
+                if (yakin())
+                {
+                    clear_screen();
+                    dequeue(&head);
+                    printf("Kembalian: %d \n", kembalian);
+                    pause();
+                }
+                break;
+            }
 
         case 3:
-            system("clear");
+            clear_screen();
             print_queue(head);
             printf("\n\n");
             pause();
@@ -162,7 +179,7 @@ void dequeue(queue_t **head){
 }
 
 void print_queue(queue_t *head){
-    system("clear");
+    clear_screen();
     queue_t *temp = head;
     printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n\n");
     while (temp != NULL)
@@ -185,8 +202,16 @@ void pause(){
     
 }
 
+void clear_screen(){
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 bool yakin(void){
-    system("clear");
+    clear_screen();
     char yakin;
     printf("Anda Yakin (Y/T): ");
     scanf(" %c", &yakin);
