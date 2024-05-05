@@ -17,6 +17,79 @@ typedef struct queue
     struct queue *next;
 }queue_t;
 
+mahasiwa_t create_mahasiswa();
+queue_t *create_queue();
+void enqueue(queue_t **head, queue_t *new_queue);
+void dequeue(queue_t **head);
+void print_queue(queue_t *head);
+void pause();
+bool yakin(void);
+
+int main(void){
+    queue_t *head = NULL, *new = NULL; 
+    int menu;
+    bool exit = false;
+
+    do
+    {
+        system("clear");
+        printf("Menu: \n\n");
+        printf("1.\tTambah Antrian\n");
+        printf("2.\tProses Pembayaran\n");
+        printf("3.\tLihat Antrian\n");
+        printf("4.\tKeluar\n\n");
+        printf("Pilihan: ");
+        scanf("%d", &menu);
+
+        switch (menu)
+        {
+        case 1:
+            system("clear");
+            new = create_queue();
+            enqueue(&head, new);
+            break;
+        
+        case 2:
+            system("clear");
+            if (head == NULL)
+            {
+                printf("The queue is currently empty\n\n");
+                pause();
+                break;
+            }
+
+            printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n");
+            printf("%s \t\t %s \t\t\t %d \t\t %d\n\n", head->mahasiswa.nama, head->mahasiswa.nim, head->mahasiswa.ukt, head->mahasiswa.nominal_ukt);
+            pause();
+            
+            if (yakin())
+            {
+                dequeue(&head);
+            }
+            break;
+
+        case 3:
+            system("clear");
+            print_queue(head);
+            printf("\n\n");
+            pause();
+            break;
+        
+        case 4:
+            if (yakin())
+            {
+                exit = true;
+            }
+            break;
+            
+        default:
+            break;
+        }
+    } while (!exit);
+    
+    
+}
+
 mahasiwa_t create_mahasiswa(){
     mahasiwa_t temp;
 
@@ -89,7 +162,7 @@ void dequeue(queue_t **head){
 }
 
 void print_queue(queue_t *head){
-    system("cls");
+    system("clear");
     queue_t *temp = head;
     printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n\n");
     while (temp != NULL)
@@ -101,8 +174,19 @@ void print_queue(queue_t *head){
     
 }
 
+void pause(){
+    char status;
+    do
+    {
+        printf("Press Enter to Continue.........");
+        getchar();
+        scanf("%c", &status);
+    } while (status != '\n');
+    
+}
+
 bool yakin(void){
-    system("cls");
+    system("clear");
     char yakin;
     printf("Anda Yakin (Y/T): ");
     scanf(" %c", &yakin);
@@ -113,69 +197,3 @@ bool yakin(void){
     }
     return false;
 }
-
-int main(void){
-    queue_t *head = NULL, *new = NULL; 
-    int menu;
-    bool exit = false;
-
-    do
-    {
-        system("cls");
-        printf("Menu: \n\n");
-        printf("1.\tTambah Antrian\n");
-        printf("2.\tProses Pembayaran\n");
-        printf("3.\tLihat Antrian\n");
-        printf("4.\tKeluar\n\n");
-        printf("Pilihan: ");
-        scanf("%d", &menu);
-
-        switch (menu)
-        {
-        case 1:
-            system("cls");
-            new = create_queue();
-            enqueue(&head, new);
-            break;
-        
-        case 2:
-            system("cls");
-            if (head == NULL)
-            {
-                printf("The queue is currently empty\n\n");
-                system("pause");
-                break;
-            }
-
-            printf("NAMA \t\t\t NIM \t\t\t\t UKT \t\t NOMINAL\n");
-            printf("%s \t\t %s \t\t\t %d \t\t %d\n\n", head->mahasiswa.nama, head->mahasiswa.nim, head->mahasiswa.ukt, head->mahasiswa.nominal_ukt);
-            system("pause");
-            
-            if (yakin())
-            {
-                dequeue(&head);
-            }
-            break;
-
-        case 3:
-            system("cls");
-            print_queue(head);
-            printf("\n\n");
-            system("pause");
-            break;
-        
-        case 4:
-            if (yakin())
-            {
-                exit = true;
-            }
-            break;
-            
-        default:
-            break;
-        }
-    } while (!exit);
-    
-    
-}
-
