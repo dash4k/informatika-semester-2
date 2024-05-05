@@ -127,6 +127,7 @@ int main(void){
             if (yakin())
             {
                 exit = true;
+                printf("Terimakasih!\n\n");
             }
             break;
             
