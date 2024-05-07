@@ -19,7 +19,7 @@ typedef struct queue
 
 mahasiwa_t create_mahasiswa();
 queue_t *create_queue();
-void enqueue(queue_t **head, queue_t *new_queue);
+void enqueue(queue_t **head, queue_t **tail, queue_t *new_queue);
 void dequeue(queue_t **head);
 void print_queue(queue_t *head);
 void pause();
@@ -27,7 +27,7 @@ void clear_screen();
 bool yakin(void);
 
 int main(void){
-    queue_t *head = NULL, *new = NULL; 
+    queue_t *head = NULL, *tail = NULL, *new = NULL; 
     int menu, nominal, kembalian;
     bool exit = false;
 
@@ -47,14 +47,14 @@ int main(void){
         case 1:
             clear_screen();
             new = create_queue();
-            enqueue(&head, new);
+            enqueue(&head, &tail, new);
             break;
         
         case 2:
             clear_screen();
             if (head == NULL)
             {
-                printf("The queue is currently empty\n\n");
+                printf("Antrian kosong!\n\n");
                 pause();
                 break;
             }
@@ -141,6 +141,7 @@ mahasiwa_t create_mahasiswa(){
         break;
 
     default:
+        temp.nominal_ukt = 15000000;
         break;
     }
     return temp;
@@ -154,21 +155,19 @@ queue_t *create_queue(){
     return new_queue;
 }
 
-void enqueue(queue_t **head, queue_t *new_queue){
-    queue_t *temp = *head;
-
+void enqueue(queue_t **head, queue_t **tail, queue_t *new_queue){
     if (*head == NULL)
     {
         *head = new_queue;
+        *tail = *head;
         return;   
     }
-
-    while (temp->next != NULL)
+    else
     {
-        temp = temp->next;
+        (*tail)->next = new_queue;
+        *tail = (*tail)->next;
+        return;
     }
-    
-    temp->next = new_queue;
 }
 
 void dequeue(queue_t **head){
