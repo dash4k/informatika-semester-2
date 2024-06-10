@@ -27,3 +27,7 @@ diskrit-2/graph_python/graph_mst/__pycache__/prim.cpython-310.pyc
 diskrit-2/graph_python/graph_mst/__pycache__/kruskal.cpython-310.pyc
 diskrit-2/graph_python/graph_mst/__pycache__/graph.cpython-310.pyc
 diskrit-2/graph_python/graph_coloring/__pycache__/graph.cpython-310.pyc
+diskrit-2/graph_python/graph_algorithm/__pycache__/dijkstra.cpython-310.pyc
+diskrit-2/graph_python/graph_algorithm/__pycache__/graph.cpython-310.pyc
+diskrit-2/graph_python/graph_algorithm/test.py
+.gitignore
