@@ -35,3 +35,21 @@ def add_edge(graph = Graph, size = int, status="undirected") -> None:
                 graph.connect_vertices(i, j, temp)
             j += 1
         i += 1
+
+def print_coloring(dict = dict, string = string) -> None:
+    color_dict = {
+    0: "Red",
+    1: "Blue",
+    2: "Green",
+    3: "Yellow",
+    4: "Rrange",
+    5: "Purple",
+    6: "Cyan",
+    7: "Magenta",
+    8: "Pink",
+    9: "Teal",
+    10: "Lime"
+    }
+    print(string)
+    for vertex, color in dict.items():
+        print(f"\t{vertex} -> {color_dict[color]}")
