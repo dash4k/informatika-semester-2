@@ -31,3 +31,7 @@ diskrit-2/graph_python/graph_algorithm/__pycache__/dijkstra.cpython-310.pyc
 diskrit-2/graph_python/graph_algorithm/__pycache__/graph.cpython-310.pyc
 diskrit-2/graph_python/graph_algorithm/test.py
 .gitignore
+diskrit-2/graph_python/graph_algorithm/__pycache__/bellmanFord.cpython-310.pyc
+diskrit-2/graph_python/graph_algorithm/__pycache__/util.cpython-310.pyc
+diskrit-2/graph_python/graph_algorithm/__pycache__/welshPowell.cpython-310.pyc
+.gitignore

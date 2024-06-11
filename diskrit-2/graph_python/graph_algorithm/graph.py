@@ -2,7 +2,7 @@ class Graph:
     def __init__(self, size = int) -> None:
         self.size = size
         self.adjMatrix = [[0 for column in range(self.size)] for row in range(self.size)]
-    
+
     def connect_vertices(self, vertex_a = int, vertex_b = int, weight = int) -> None:
         if self.adjMatrix[vertex_a][vertex_b] != 0:
             return

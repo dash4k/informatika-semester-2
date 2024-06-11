@@ -1,40 +1,72 @@
 from graph import Graph
 from dijkstra import dijkstra_algorithm
+from bellmanFord import bellman_ford
+from welshPowell import welsh_powell
+from util import clear, ask_int, print_sp, add_edge
 
-# size = int(input("Enter the total number of vertices: "))
 
-size = 9
-
-graph = Graph(size)
-
-# print("Enter an integer if the vertices are connected, 0 if not connected")
-# i = 0
-# while i < size:
-#     j = 0
-#     while j < size:
-#         temp = int(input(f"\t{i} -> {j}: "))
-#         if temp != 0:
-#             graph.connect_vertices(i, j, temp)
-#         j += 1
-#     i += 1
-
-# graph.print_graph()
-
-# print("\n\n")
-
-graph.adjMatrix = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
-           [4, 0, 8, 0, 0, 0, 0, 11, 0],
-           [0, 8, 0, 7, 0, 4, 0, 0, 2],
-           [0, 0, 7, 0, 9, 14, 0, 0, 0],
-           [0, 0, 0, 9, 0, 10, 0, 0, 0],
-           [0, 0, 4, 14, 10, 0, 2, 0, 0],
-           [0, 0, 0, 0, 0, 2, 0, 1, 6],
-           [8, 11, 0, 0, 0, 0, 1, 0, 7],
-           [0, 0, 2, 0, 0, 0, 6, 7, 0]
-           ]
-
-graph.print_graph()
-
-print("\n\n")
-
-print(dijkstra_algorithm(graph, 0))
+flag_1 = flag_2 = True
+while flag_1:
+    clear()
+    print("\t\tMAIN MENU\n")
+    print("\t1. Graph Shortest Path")
+    print("\t2. Graph Coloring")
+    print("\t3. Exit\n")
+    choice_main_menu = ask_int("\n\tChoice: ")
+    if choice_main_menu == 1:
+        clear()
+        print("\t\tGraph Shortest Path\n")
+        size = ask_int("Enter the total number of vertices: ")
+        graph = Graph(size)
+        add_edge(graph, size)
+        while flag_2:
+            clear()
+            print("\t\tGraph Shortest Path\n")
+            print("\t1. Dijkstra Algorithm")
+            print("\t2. Bellman-Ford Algorithm")
+            print("\t3. Main Menu\n")
+            choice_menu = ask_int("\n\tChoice: ")
+            if choice_menu == 1:
+                clear()
+                print("\t\tGraph Shortest Path\n")
+                graph.print_graph()
+                target = ask_int("\nInsert the starting point of the Dijkstra algorithm: ")
+                if target >= size:
+                    input("Incorrect shortest path source.\nPress any key to continue...")
+                    continue
+                print_sp(dijkstra_algorithm(graph, target), f"\nThe shortest path of each vertex to {target} is:")
+                input("\n\nPress any key to continue...")
+                continue
+            if choice_menu == 2:
+                clear()
+                print("\t\tGraph Shortest Path\n")
+                graph.print_graph()
+                target = ask_int("\nInsert the starting point of the Bellman-Ford algorithm: ")
+                if target >= size:
+                    input("Incorrect shortest path source.\nPress any key to continue...")
+                    continue
+                print_sp(bellman_ford(graph, target), f"\nThe shortest path of each vertex to {target} is:")
+                input("\n\nPress any key to continue...")
+                continue
+            if choice_menu == 3:
+                flag_2 = False
+                continue
+            else:
+                continue
+    if choice_main_menu == 2:
+        clear()
+        print("\t\tGraph Coloring\n")
+        size = ask_int("Enter the total number of vertices: ")
+        graph = Graph(size)
+        add_edge(graph, size)
+        clear()
+        print("\t\tGraph Coloring\n")
+        graph.print_graph()
+        print_sp(welsh_powell(graph), f"\nThe corresponding color to each vertex of this graph is:")
+        input("\n\nPress any key to continue...")
+        continue
+    if choice_main_menu == 3:
+        flag_1 = False
+        continue
+    else:
+        continue
