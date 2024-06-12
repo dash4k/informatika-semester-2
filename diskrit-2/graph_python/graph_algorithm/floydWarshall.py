@@ -15,10 +15,7 @@ def floyd_warshall(graph = Graph) -> list:
         for i in range(graph.size):
             for j in range(graph.size):
                 apsp[i][j] = min(apsp[i][j], apsp[i][k] + apsp[k][j])
-    for k in range(graph.size):
-        for i in range(graph.size):
-            for j in range(graph.size):
-                if apsp[i][k] + apsp[k][j] < apsp[i][j]:
-                        print("\nThe graph contain a negative weight cycle!\n")
-                        return
+                if i == j and apsp[i][j] < 0:
+                    print("\nThe graph contains a negative weight cycle!\n")
+                    return
     return apsp
