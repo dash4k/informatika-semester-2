@@ -16,7 +16,7 @@ def dijkstra_algorithm(graph = Graph, target = int) -> dict:
     for _ in range(graph.size):
         min_vertex = find_lowest(short_path, visited, graph)
         visited[min_vertex] = True
-        for j in range(graph.size):
-            if graph.adjMatrix[min_vertex][j] > 0 and not visited[j] and short_path[j] > short_path[min_vertex] + graph.adjMatrix[min_vertex][j]:
-                short_path[j] =  short_path[min_vertex] + graph.adjMatrix[min_vertex][j]
+        for column in range(graph.size):
+            if graph.adjMatrix[min_vertex][column] > 0 and not visited[column] and short_path[column] > short_path[min_vertex] + graph.adjMatrix[min_vertex][column]:
+                short_path[column] =  short_path[min_vertex] + graph.adjMatrix[min_vertex][column]
     return short_path

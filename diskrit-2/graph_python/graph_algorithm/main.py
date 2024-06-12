@@ -32,10 +32,10 @@ while flag_1:
                 graph.print_graph()
                 target = ask_int("\nInsert the starting point of the Dijkstra algorithm: ")
                 if target >= size:
-                    input("Incorrect shortest path source.\nPress any key to continue...")
+                    input("Incorrect shortest path source.\nPress enter to continue...")
                     continue
                 print_sp(dijkstra_algorithm(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
-                input("\n\nPress any key to continue...")
+                input("\n\nPress enter to continue...")
                 continue
             if choice_menu == 2:
                 clear()
@@ -43,10 +43,10 @@ while flag_1:
                 graph.print_graph()
                 target = ask_int("\nInsert the starting point of the Bellman-Ford algorithm: ")
                 if target >= size:
-                    input("Incorrect shortest path source.\nPress any key to continue...")
+                    input("Incorrect shortest path source.\nPress enter to continue...")
                     continue
                 print_sp(bellman_ford(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
-                input("\n\nPress any key to continue...")
+                input("\n\nPress enter to continue...")
                 continue
             if choice_menu == 3:
                 flag_2 = False
@@ -63,7 +63,7 @@ while flag_1:
         print("\t\tGraph Coloring\n")
         graph.print_graph()
         print_coloring(welsh_powell(graph), f"\nThe corresponding color to each vertex of this graph is:\n")
-        input("\n\nPress any key to continue...")
+        input("\n\nPress enter to continue...")
         continue
     if choice_main_menu == 3:
         flag_1 = False
