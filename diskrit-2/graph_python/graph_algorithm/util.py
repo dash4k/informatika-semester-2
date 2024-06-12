@@ -8,6 +8,7 @@ def clear() -> None:
     else:
         os.system('clear')
 
+
 def ask_int(string = string) -> int:
     while True:
         try:
@@ -16,10 +17,12 @@ def ask_int(string = string) -> int:
         except ValueError:
             continue
 
+
 def print_sp(dict = dict, string = string) -> None:
     print(string)
     for vertex, distance in dict.items():
         print(f"\t{vertex} -> {distance}")
+
 
 def add_edge(graph = Graph, size = int, status="undirected") -> None:
     print("Enter an integer if the vertices are connected, 0 if not connected")
@@ -35,6 +38,7 @@ def add_edge(graph = Graph, size = int, status="undirected") -> None:
                 graph.connect_vertices(i, j, temp)
             j += 1
         i += 1
+
 
 def print_coloring(dict = dict, string = string) -> None:
     color_dict = {
@@ -53,3 +57,11 @@ def print_coloring(dict = dict, string = string) -> None:
     print(string)
     for vertex, color in dict.items():
         print(f"\t{vertex} -> {color_dict[color]}")
+
+
+def print_apsp(list = list, string = string) -> None:
+    print(string)
+    for row in range(len(list)):
+        for column in range(len(list)):
+            print(f"\t{row} -> {column} = {list[row][column]}")
+        print()

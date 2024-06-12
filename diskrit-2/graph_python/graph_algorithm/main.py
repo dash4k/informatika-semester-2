@@ -1,8 +1,9 @@
 from graph import Graph
 from dijkstra import dijkstra_algorithm
 from bellmanFord import bellman_ford
-from welshPowell import welsh_powell
-from util import clear, ask_int, print_sp, add_edge, print_coloring
+# from welshPowell import welsh_powell
+from floydWarshall import floyd_warshall
+from util import clear, ask_int, print_sp, add_edge, print_coloring, print_apsp
 
 
 flag_1 = flag_2 = True
@@ -10,7 +11,8 @@ while flag_1:
     clear()
     print("\t\tMAIN MENU\n")
     print("\t1. Graph Shortest Path")
-    print("\t2. Graph Coloring")
+    # print("\t2. Graph Coloring")
+    print("\t2. Graph All-Pairs Shortest Path (APSP)")
     print("\t3. Exit\n")
     choice_main_menu = ask_int("\n\tChoice: ")
     if choice_main_menu == 1:
@@ -34,9 +36,13 @@ while flag_1:
                 if target >= size:
                     input("Incorrect shortest path source.\nPress enter to continue...")
                     continue
-                print_sp(dijkstra_algorithm(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
-                input("\n\nPress enter to continue...")
-                continue
+                try:
+                    print_sp(dijkstra_algorithm(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
+                    input("\n\nPress enter to continue...")
+                    continue
+                except TypeError:
+                    input("\n\nPress enter to continue...")
+                    continue
             if choice_menu == 2:
                 clear()
                 print("\t\tGraph Shortest Path\n")
@@ -45,26 +51,45 @@ while flag_1:
                 if target >= size:
                     input("Incorrect shortest path source.\nPress enter to continue...")
                     continue
-                print_sp(bellman_ford(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
-                input("\n\nPress enter to continue...")
-                continue
+                try:
+                    print_sp(bellman_ford(graph, target), f"\nThe shortest path of each vertex to {target} is:\n")
+                    input("\n\nPress enter to continue...")
+                    continue
+                except TypeError:
+                    input("\n\nPress enter to continue...")
+                    continue
             if choice_menu == 3:
                 flag_2 = False
                 continue
             else:
                 continue
     if choice_main_menu == 2:
+        # clear()
+        # print("\t\tGraph Coloring\n")
+        # size = ask_int("Enter the total number of vertices: ")
+        # graph = Graph(size)
+        # add_edge(graph, size)
+        # clear()
+        # print("\t\tGraph Coloring\n")
+        # graph.print_graph()
+        # print_coloring(welsh_powell(graph), f"\nThe corresponding color to each vertex of this graph is:\n")
+        # input("\n\nPress enter to continue...")
+        # continue
         clear()
-        print("\t\tGraph Coloring\n")
+        print("\t\tGraph All-Pairs Shortest Path (APSP)\n")
         size = ask_int("Enter the total number of vertices: ")
         graph = Graph(size)
         add_edge(graph, size)
         clear()
-        print("\t\tGraph Coloring\n")
+        print("\t\tGraph All-Pairs Shortest Path (APSP)\n")
         graph.print_graph()
-        print_coloring(welsh_powell(graph), f"\nThe corresponding color to each vertex of this graph is:\n")
-        input("\n\nPress enter to continue...")
-        continue
+        try:
+            print_apsp(floyd_warshall(graph), "\nThe all-pairs shortest path of each vertex is:\n")
+            input("\n\nPress enter to continue...")
+            continue
+        except TypeError:
+            input("\n\nPress enter to continue...")
+            continue
     if choice_main_menu == 3:
         flag_1 = False
         clear()
