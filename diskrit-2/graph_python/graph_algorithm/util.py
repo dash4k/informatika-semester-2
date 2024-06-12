@@ -2,6 +2,7 @@ from graph import Graph
 import os
 import string
 
+
 def clear() -> None:
     if os.name == 'nt':
         os.system('cls')

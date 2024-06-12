@@ -1,5 +1,6 @@
 from graph import Graph
 
+
 def find_lowest(dict = dict, visited = [], graph = Graph) -> int:
     temp = 1e9
     temp_index = 0

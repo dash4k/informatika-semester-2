@@ -1,5 +1,6 @@
 from graph import Graph
 
+
 def sorted_count_edges(graph = Graph) -> dict:
     graph_edges = {i: 0 for i in range(graph.size)}
     for i in range(graph.size):

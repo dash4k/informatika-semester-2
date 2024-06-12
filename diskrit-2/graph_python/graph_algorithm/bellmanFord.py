@@ -1,5 +1,6 @@
 from graph import Graph
 
+
 def bellman_ford(graph = Graph, target = int) -> dict:
     short_path = {i: 1e9 for i in range(graph.size)}
     short_path[target] = 0
