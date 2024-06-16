@@ -1,4 +1,5 @@
 from graph import Graph
+from tabulate import tabulate
 import os
 import string
 
@@ -25,16 +26,16 @@ def print_sp(dict = dict, string = string) -> None:
         print(f"\t{vertex} -> {distance}")
 
 
-def add_edge(graph = Graph, size = int, status="undirected") -> None:
+def add_edge(graph = Graph, size = int, directed=True) -> None:
     print("Enter an integer if the vertices are connected, 0 if not connected")
     i = 0
     while i < size:
-        if status == "undirected":
+        if directed == False:
             j = i
         else:
             j = 0
         while j < size:
-            temp = int(input(f"\t{i} -> {j}: "))
+            temp = int(input(f"\t{i}    ------->    {j}: "))
             if temp != 0:
                 graph.connect_vertices(i, j, temp)
             j += 1
@@ -62,7 +63,9 @@ def print_coloring(dict = dict, string = string) -> None:
 
 def print_apsp(list = list, string = string) -> None:
     print(string)
-    for row in range(len(list)):
-        for column in range(len(list)):
-            print(f"\t{row} -> {column} = {list[row][column]}")
-        print()
+    header = [i for i in range(len(list))]
+    # for row in range(len(list)):
+    #     for column in range(len(list)):
+    #         print(f"\t{row} -> {column} = {list[row][column]}")
+    #     print()
+    print(tabulate(list, tablefmt="fancy_grid", headers=header, showindex=True))

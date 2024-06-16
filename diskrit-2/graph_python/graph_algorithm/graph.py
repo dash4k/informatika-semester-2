@@ -1,3 +1,7 @@
+from time import sleep
+from tabulate import tabulate
+
+
 class Graph:
     def __init__(self, size = int) -> None:
         self.size = size
@@ -12,15 +16,17 @@ class Graph:
             return
     
     def print_graph(self) -> None:
+        header = [i for i in range(self.size)]
         print("\nYour Graph:\n")
-        for i in range(self.size):
-            print(f"\t{i} ", end="")
-        print("\n")
-        for column in range(self.size):
-            print(column, end="")
-            for row in range(self.size):
-                if self.adjMatrix[column][row]:
-                    print(f"\t{self.adjMatrix[column][row]}", end="")
-                else:
-                    print("\t-", end="")
-            print()
+        # for i in range(self.size):
+        #     print(f"\t{i} ", end="")
+        # print("\n")
+        # for column in range(self.size):
+        #     print(column, end="")
+        #     for row in range(self.size):
+        #         if self.adjMatrix[column][row]:
+        #             print(f"\t{self.adjMatrix[column][row]}", end="")
+        #         else:
+        #             print("\t-", end="")
+        #     print()
+        print(tabulate(self.adjMatrix, tablefmt="fancy_grid", headers=header, showindex=True))
