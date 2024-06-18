@@ -28,6 +28,7 @@ def print_sp(dict = dict, string = string) -> None:
 
 def add_edge(graph = Graph, size = int, directed=True) -> None:
     print("Enter an integer if the vertices are connected, 0 if not connected")
+    status = directed
     i = 0
     while i < size:
         if directed == False:
@@ -37,7 +38,7 @@ def add_edge(graph = Graph, size = int, directed=True) -> None:
         while j < size:
             temp = int(input(f"\t{i}    ------->    {j}: "))
             if temp != 0:
-                graph.connect_vertices(i, j, temp)
+                graph.connect_vertices(i, j, temp, directed=status)
             j += 1
         i += 1
 
