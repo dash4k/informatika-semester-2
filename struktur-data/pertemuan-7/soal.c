@@ -71,10 +71,6 @@ int square(int x){
 }
 
 int linear_index(hash_t *hash_table, int k, int m){
-    if (k == m)
-    {
-        return 0;
-    }
     int index = k % m;
     if (hash_table[index].data != 0)
     {
@@ -106,10 +102,6 @@ hash_t *linear_probing(int *array, int size){
 }
 
 int quadratic_index(hash_t *hash_table, int k, int i, int m){
-    if (k == m)
-    {
-        return 0;
-    }
     int index = (k + square(i)) % m;
     if (hash_table[index].data != 0)
     {
