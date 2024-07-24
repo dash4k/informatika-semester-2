@@ -11,7 +11,7 @@ def find_lowest(dict = dict, visited = [], graph = Graph) -> int:
     return temp_index
 
 
-def dijkstra_algorithm(graph = Graph, target = int) -> dict:
+def dijkstra_algorithm(graph: Graph, target: float) -> dict:
     short_path = {i: 1e9 for i in range(graph.size)}
     visited = [False for i in range(graph.size)]
     short_path[target] = 0

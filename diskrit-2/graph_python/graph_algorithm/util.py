@@ -36,7 +36,7 @@ def add_edge(graph = Graph, size = int, directed=True) -> None:
         else:
             j = 0
         while j < size:
-            temp = int(input(f"\t{i}    ------->    {j}: "))
+            temp = float(input(f"\t{i}    ------->    {j}: "))
             if temp != 0:
                 graph.connect_vertices(i, j, temp, directed=status)
             j += 1
